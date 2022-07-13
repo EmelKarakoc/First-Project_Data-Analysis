@@ -1,15 +1,11 @@
-import matplotlib.pyplot as plt
+#Seviye tabanlı (level based) yeni müşteri tanımları (persona) oluşturulacak
+#Bu yeni müşteri tanımlarına göre segmentler oluşturulacak
+#Bu segmentlere göre yeni gelebilecek müşterilerin şirkete ortalama ne kadar kazandırabileceği tahmin edilecek
 
----Kural Tabanlı Sınıflandırma ile Potansiyel Müşteri Getirisi Hesaplama---
+# persona.cv = ürünlerin fiyatlarını ve bu ürünleri satın alan kullanıcıların bazı demografik bilgileri yer alır.
+# Her satış işleminde oluşan kayıtlardan meydana gelmektedir; tablo tekilleştirilmemiştir.
 
-### 1. seviye tabanlı (level based) yeni müşteri tanımları (persona) oluşturulacak
-## 2. Bu yeni müşteri tanımlarına göre segmentler oluşturulacak
-# 3. Bu segmentlere göre yeni gelebilecek müşterilerin şirkete ortalama ne kadar kazandırabileceği tahmin edilecek
-
-### persona.cv = ürünlerin fiyatlarını ve bu ürünleri satın alan kullanıcıların bazı demografik bilgileri yer alır.
-## her satış işleminde oluşan kayıtlardan meydana gelmektedir; tablo tekilleştirilmemiştir.
-
-### Değişkenler :
+## Değişkenler :
 # PRICE : Müşterinin harcama tutarı
 # SOURCE : Müşterinin bağlandığı cihaz türü
 # SEX : Müşterinin cinsiyeti
@@ -80,17 +76,6 @@ agg_df.head()
 #Üçüncü sorunun çıktısında yer alan PRICE dışındaki tüm değişkenler index isimleridir. Bu isimleri değişken isimlerine çeviriniz.
 
 agg_df.index
-
-#herhangi bir değişkenin varlığını sorgulamak için
-
-"AGE" in agg_df
-"SOURCE" in agg_df
-"SEX" in agg_df
-"AGE" in agg_df
-"PRICE" in agg_df
-
-#Indekste yer alan isimleri değişken ismine çevirelim:
-
 agg_df: object=agg_df.reset_index()
 
 #Age değişkenini kategorik değişkene çeviriniz ve agg_df’e ekleyiniz.
@@ -98,7 +83,7 @@ agg_df: object=agg_df.reset_index()
 #Aralıkları ikna edici şekilde oluşturunuz.
 #Örneğin: ‘0_18', ‘19_23', '24_30', '31_40', '41_70'
 
-agg_df["AGE"] --> sonuç : dtype: int64 geldi. yani age değişkeni kategorik değil, integer tipinde.
+agg_df["AGE"] --> sonuç : dtype: int64 geldi. yani age değişkeni kategorik değildir, integer tipindedir.
 
 #kategorik değişkenleri yakalama
 kategorik_degiskenler = [column for column in agg_df.columns if str(agg_df[column].dtypes) in ["category","object","bool"]]
@@ -109,7 +94,6 @@ kategorik_degiskenler --> SONUÇ : ['COUNTRY', 'SOURCE', 'SEX'] --> AGE değişk
 agg_df["AGE_CAT"] = agg_df["AGE"].astype("category")
 label_isimleri=["0_18","19_23","24_30","31_40","41_70"]
 agg_df["AGE_CAT"] = pd.cut(agg_df["AGE_CAT"], [0,18,24,30,40,70], labels=label_isimleri)
-agg_df["AGE_CAT"].head(30)
 agg_df.head(30)
 
 #Yeni seviye tabanlı müşterileri (persona) tanımlayınız ve veri setine değişken olarak ekleyiniz.
